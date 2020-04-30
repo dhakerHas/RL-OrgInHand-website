@@ -1,0 +1,16 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" >
+    <apex:includeLightning />
+
+    <div id="signInDiv"></div>
+
+    <script>
+        $Lightning.use("c:testApp2", function() {
+            $Lightning.createComponent("c:MainComponent",
+                    {},
+                    "signInDiv",
+                    function(cmp) {
+                        console.log('>>>>> App is hosted');
+                    });
+        });
+    </script>
+</apex:page>

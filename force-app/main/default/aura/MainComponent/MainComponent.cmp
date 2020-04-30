@@ -1,0 +1,17 @@
+<aura:component access="global" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId" >
+    <aura:attribute name="variable" type="boolean" default="False"/>
+    <aura:attribute name ="login" type="string" default =''/>
+   <aura:handler name="connResource" event="c:LoginEvent" action="{!c.handleLoginEvent}"/>
+	 <aura:if isTrue="{!v.variable == False}">
+         <c:SignIn/>
+         
+    <aura:set attribute="else">
+        
+      <c:Calend childAttribute="{!v.login}"/>
+        
+
+       <c:Calend/>
+       
+    </aura:set>
+  </aura:if> 
+</aura:component>

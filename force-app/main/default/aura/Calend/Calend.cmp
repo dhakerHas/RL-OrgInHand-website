@@ -1,0 +1,105 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,lightning:isUrlAddressable"
+                access="global" 
+                controller="TaskcalendarController">
+    <aura:attribute name="selectedTask" type ="Tache__c" ></aura:attribute>
+    <aura:attribute name="connR" type ="Ressource__c"/> 
+    <aura:attribute name="childAttribute" type="String"/>
+    <aura:attribute name="conn" type ="String" default='defaultValue'/> 
+    <aura:attribute name="truthy" type="boolean" default="true" />
+    <aura:handler name="eventVar" event="c:FetchingCalendDataEvent" action="{!c.handleLoginEventt}"/>
+    
+    <aura:if isTrue="{!v.truthy}">  
+    
+	<!-- Testing popup div start-->     
+    <div role="dialog" tabindex="-1" aria-labelledby="header43" aura:id="Modalbox1" class="slds-modal slds-modal_large">
+        <div class="slds-modal__container" style="width: 65%;">
+            <div class="slds-modal__header" style="font-size: 1rem;">
+                Task Details
+            </div>
+            
+            <div class="slds-modal__content slds-p-around--medium">
+                  
+                <div class="slds-grid slds-p-top_medium">
+                    <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                        <lightning:input label="Task Title" name="myname" value="{!v.selectedTask.Name}" aura:id = "title" readonly="true"/> 
+                    </div>
+                    <div class="slds-size_5-of-12 slds-p-left_xx-small slds-p-horizontal_x-large " >
+                        <label class="slds-form-element__label" for="stacked-input-id-02">Status</label>
+                        <div class="slds-select_container">
+                                    <select  class="slds-select" default='' aura:id="ns" value="{!v.selectedTask.Status__c}">
+                                        <option value="To do"> To do</option>
+                                        <option value="In progress"> In progress</option>
+                                        <option value="Done"> Done</option>
+                                    </select>
+                           </div>
+                   </div>
+               </div>
+               <div class="slds-grid slds-p-top_medium">
+                    <div class="slds-size_12-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                        <div class="slds-form-element slds-form-element_stacked">
+                            <label class="slds-form-element__label" for="stacked-input-id-02">Description</label>
+                            <div class="slds-form-element__control">
+                                <textarea aura:id="desc" class="slds-textarea" value="{!v.selectedTask.Description__c}" readonly="true" ></textarea>
+                            </div>
+                        </div>
+                   </div> 
+                  	</div>
+                    <div class="slds-size_12-of-12 slds-p-left_xx-small slds-p-horizontal_x-large " >
+                        <ui:inputDateTime aura:id="today" label="Time" class="field" disabled="true" value="{!v.selectedTask.Completed_Date__c}" displayDatePicker="false" /> 
+                    </div>
+                </div>
+            
+            <div class="slds-modal__footer">
+                <lightning:button label="Save" onclick="{!c.onclick}" />
+                <lightning:button label="close" onclick="{!c.closeNewModal}" />
+            </div>
+            </div>
+        </div>
+    
+   
+   <!-- Testing popup div end--> 
+    
+    <!-- Testing button  start-->
+    <div class="slds-p-around_xx-large">
+    <div class="slds-border_top">    </div>
+    <lightning:button label="View Details"
+                      iconName="utility:new_window"
+                      iconPosition="left"
+                      variant="brand"
+                      onclick="{!c.newPopup}"
+                      />
+     
+    <!-- Testing button end start-->
+ 
+    
+    
+   
+    
+    
+    
+    
+    
+    
+    <div class="slds-grid slds-gutters">
+      <input type="hidden" aura:id="recordId" name="recordId" id="recordId" />  
+     
+             
+            <ltng:require scripts="{!join(',', 
+            $Resource.fullcalendar + '/fullcalendar/jquery.min.js', 
+            $Resource.fullcalendar + '/fullcalendar/jquery-ui.min.js',
+            $Resource.fullcalendar + '/fullcalendar/moment.min.js',
+            $Resource.fullcalendar + '/fullcalendar/fullcalendar.min.js')}"
+   styles="{!$Resource.fullcalendar + '/fullcalendar/fullcalendar.min.css'}"
+   
+   afterScriptsLoaded="{!c.scriptsLoaded}" />
+     
+            <div id='calendar'></div>
+        
+
+            
+        
+       
+    </div>
+    </div>
+</aura:if>
+</aura:component>
